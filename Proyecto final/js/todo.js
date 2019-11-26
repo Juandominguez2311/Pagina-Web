@@ -1,3 +1,11 @@
+function promedio(nota1,nota2) {
+    var num1 = Number.parseInt(nota1);
+    var num2 = Number.parseInt(nota2);
+    return (num1 + num2) / 2;
+}
+
+
+
 angular.module('todoApp', [])
     .controller('TodoListController', function () {
         var todoList = this;
@@ -36,7 +44,13 @@ angular.module('todoApp', [])
 
 
         todoList.addUsuario = function () {
-            var usuario = { nombre: todoList.NewUserNombre, apellido: todoList.NewUserApellido, edad: todoList.NewUserEdad }
+            var usuario = { 
+                nombre: todoList.NewUserNombre,
+                apellido: todoList.NewUserApellido,
+                nota1: todoList.NewUsernota1,
+                nota2 :todoList.NewUsernota2,
+                promedio: Math.round(promedio(todoList.NewUsernota1,todoList.NewUsernota2))
+            }
             todoList.usuarios.push(usuario);
             var listString = JSON.stringify(todoList.usuarios);
             localStorage.setItem('Usuarios', listString);
@@ -55,20 +69,23 @@ angular.module('todoApp', [])
             todoList.indexAEditar = index;
             todoList.NewUserNombre = usuario.nombre;
             todoList.NewUserApellido = usuario.apellido;
-            todoList.NewUserEdad=usuario.edad;
+            todoList.NewUsernota1=usuario.nota1;
+            todoList.NewUsernota2=usuario.nota2;
         };
 
         todoList.SaveModificarUsuario = function () {
 
             todoList.usuarios[todoList.indexAEditar].nombre = todoList.NewUserNombre;
             todoList.usuarios[todoList.indexAEditar].apellido = todoList.NewUserApellido;
-            todoList.usuarios[todoList.indexAEditar].edad = todoList.NewUserEdad;
+            todoList.usuarios[todoList.indexAEditar].edad = todoList.NewUsernota1;
+            todoList.usuarios[todoList.indexAEditar].edad = todoList.NewUsernota2;
         };
 
         todoList.nuevoUsuario = function () {
             todoList.NewUserNombre = "";
             todoList.NewUserApellido = "";
-            todoList.NewUserEdad="";
+            todoList.NewUsernota1="";
+            todoList.NewUsernota2="";
             todoList.showFormulario = true;
             todoList.soyAlta = true;
         };

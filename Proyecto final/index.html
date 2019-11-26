@@ -20,19 +20,34 @@
     <div ng-controller="TodoListController as todoList">
 
         <table class="table table-striped">
-            <tr ng-repeat="usuario in todoList.usuarios">
-                <td>{{usuario.nombre}}</td>
-                <td>{{usuario.apellido}}</td>
-                <td>{{usuario.nota1}}</td>
-                <td>{{usuario.nota2}}</td>
-                <td>
-                    <button class="btn btn-danger" ng-click="todoList.delUsuario($index)">Eliminar</button>
-                </td>
-                <td>
-                    <button class="btn btn-info"
-                        ng-click="todoList.ModificarUsuario(usuario, $index)">Modificar</button>
-                </td>
-            </tr>
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">nota 1</th>
+                    <th scope="col">nota 2</th>
+                    <th scope="col">promedio</th>
+                  </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="usuario in todoList.usuarios">
+                    <td>{{usuario.nombre}}</td>
+                    <td>{{usuario.apellido}}</td>
+                    <td>{{usuario.nota1}}</td>
+                    <td>{{usuario.nota2}}</td>
+                    <td>{{usuario.promedio}}</td>
+                    <td ng-if="usuario.promedio >= 6" class="btn btn-success"> aprobado</td>
+                    <td ng-if="usuario.promedio >= 4 && usuario.promedio < 6" class="btn btn-warning">desaprobado</td>
+                    <td ng-if="usuario.promedio < 4" class="btn btn-danger">desaprobado</td>
+                    <td>
+                        <button class="btn btn-danger" ng-click="todoList.delUsuario($index)">Eliminar</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info"
+                            ng-click="todoList.ModificarUsuario(usuario, $index)">Modificar</button>
+                    </td>
+                </tr>
+            </tbody>
         </table>
         <button class="btn btn-default" ng-click="todoList.nuevoUsuario()">Nuevo</button>
 
