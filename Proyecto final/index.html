@@ -36,9 +36,7 @@
                     <td>{{usuario.nota1}}</td>
                     <td>{{usuario.nota2}}</td>
                     <td>{{usuario.promedio}}</td>
-                    <td ng-if="usuario.promedio >= 6" class="btn btn-success"> aprobado</td>
-                    <td ng-if="usuario.promedio >= 4 && usuario.promedio < 6" class="btn btn-warning">desaprobado</td>
-                    <td ng-if="usuario.promedio < 4" class="btn btn-danger">desaprobado</td>
+                    
                     <td>
                         <button class="btn btn-danger" ng-click="todoList.delUsuario($index)">Eliminar</button>
                     </td>
@@ -50,6 +48,8 @@
             </tbody>
         </table>
         <button class="btn btn-default" ng-click="todoList.nuevoUsuario()">Nuevo</button>
+        <button class="btn btn-default" ng-click="todoList.AlumnosDesaprovados()">Desaprovados</button>
+
 
 
         <div ng-if="todoList.showFormulario">
@@ -89,11 +89,21 @@
                 </div>
             </div>
 
-
-
-
+            <table class="table table-striped" >
+                    <tr ng-repeat="usuario in todoList.usuariosDesaprovadosCargados track by $index">
+                        <td>{{usuario.nombre}}</td>
+                        <td>{{usuario.apellido}}</td>
+                        <td>{{usuario.nota1}}</td>
+                        <td>{{usuario.nota2}}</td>
+                        <td>{{usuario.promedio}}</td>
+                        
+                    </tr>
+                
+            </table>
         </div>
+<div>
 
+</div>
 
 
     </div>
