@@ -1,29 +1,29 @@
 angular.module('todoApp', [])
-    .controller('TodoListController', function () {
-        var todoList = this;
-        todoList.todos = [
+    .controller('TodoListEstados', function () {
+        var todoEstados = this;
+        todoEstados.todos = [
             { text: 'learn AngularJS', done: true },
             { text: 'build an AngularJS app', done: false }];
 
         
         if (localStorage.getItem("Estados")) {
-            todoList.estados = JSON.parse(localStorage.getItem('Estados'));
+            todoEstados.estados = JSON.parse(localStorage.getItem('Estados'));
         }
         else {
-            todoList.estados = [];
+            todoEstados.estados = [];
         }
 
-        todoList.showFormulario = false;
-        todoList.soyAlta = false;
+        todoEstados.showFormulario = false;
+        todoEstados.soyAlta = false;
 
-        todoList.addTodo = function () {
-            todoList.todos.push({ text: todoList.todoText, done: false });
-            todoList.todoText = '';
+        todoEstados.addTodo = function () {
+            todoEstados.todos.push({ text: todoEstados.todoText, done: false });
+            todoEstados.todoText = '';
         };
 
-        todoList.remaining = function () {
+        todoEstados.remaining = function () {
             var count = 0;
-            angular.forEach(todoList.todos, function (todo) {
+            angular.forEach(todoEstados.todos, function (todo) {
                 count += todo.done ? 0 : 1;
             });
             return count;
@@ -31,42 +31,43 @@ angular.module('todoApp', [])
 
 
 
-        todoList.addUsuario = function () {
-            var estado = { nombre: todoList.NewUserNombre, IdEstado: todoList.NewUserIdEstado}
-            todoList.estados.push(estado);
-            var listString = JSON.stringify(todoList.estados);
+        todoEstados.addEstado = function () {
+            var estado = { estado: todoEstados.NewUserNombre, IdEstado: todoEstados.NewUserIdEstado}
+            todoEstados.estados.push(estado);
+            var listString = JSON.stringify(todoEstados.estados);
             localStorage.setItem('Estados', listString);
         };
 
 
-        todoList.delUsuario = function (index) {
-            todoList.estados.splice(index, 1);
+        todoEstados.delEstado = function (index) {
+            todoEstados.estados.splice(index, 1);
+            localStorage.setItem('Estados', JSON.stringify(todoEstados.estados))
         };
 
-        todoList.indexAEditar = 0;
+        todoEstados.indexAEditar = 0;
 
-        todoList.ModificarUsuario = function (estado, index) {
-            todoList.showFormulario = true;
-            todoList.soyAlta = false;
-            todoList.indexAEditar = index;
-            todoList.NewUserNombre = estado.nombre;
-            todoList.NewUserIdEstado = estado.IdEstado;
+        todoEstados.ModificarEstado = function (estado, index) {
+            todoEstados.showFormulario = true;
+            todoEstados.soyAlta = false;
+            todoEstados.indexAEditar = index;
+            todoEstados.NewUserNombre = estado.nombre;
+            todoEstados.NewUserIdEstado = estado.IdEstado;
 
             
         };
 
-        todoList.SaveModificarUsuario = function () {
+        todoEstados.SaveModificarEstado = function () {
 
-            todoList.estados[todoList.indexAEditar].nombre = todoList.NewUserNombre;
-            todoList.estados[todoList.indexAEditar].IdEstado = todoList.NewUserIdEstado;
+            todoEstados.estados[todoEstados.indexAEditar].nombre = todoEstados.NewUserNombre;
+            todoEstados.estados[todoEstados.indexAEditar].IdEstado = todoEstados.NewUserIdEstado;
             
         };
 
-        todoList.nuevoUsuario = function () {
-            todoList.NewUserNombre = "";
-            todoList.NewUserIdEstado = "";
-            todoList.showFormulario = true;
-            todoList.soyAlta = true;
+        todoEstados.nuevoEstado = function () {
+            todoEstados.NewUserNombre = "";
+            todoEstados.NewUserIdEstado = "";
+            todoEstados.showFormulario = true;
+            todoEstados.soyAlta = true;
         };
 
     });

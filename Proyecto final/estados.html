@@ -17,43 +17,43 @@
 
 <body>
     <h2>Todo</h2>
-    <div ng-controller="TodoListController as todoList">
+    <div ng-controller="TodoListEstados as todoEstados">
 
         <table class="table table-striped">
-            <tr ng-repeat="estado in todoList.estados">
-                <td>{{estado.nombre}}</td>
+            <tr ng-repeat="estado in todoEstados.estados">
+                <td>{{estado.estado}}</td>
                 <td>{{estado.IdEstado}}</td>
                 
                 <td>
-                    <button class="btn btn-danger" ng-click="todoList.delUsuario($index)">Eliminar</button>
+                    <button class="btn btn-danger" ng-click="todoEstados.delEstado($index)">Eliminar</button>
                 </td>
                 <td>
                     <button class="btn btn-info"
-                        ng-click="todoList.ModificarUsuario(estado, $index)">Modificar</button>
+                        ng-click="todoEstados.ModificarEstado(estado, $index)">Modificar</button>
                 </td>
             </tr>
         </table>
-        <button class="btn btn-default" ng-click="todoList.nuevoUsuario()">Nuevo</button>
+        <button class="btn btn-default" ng-click="todoEstados.nuevoEstado()">Nuevo</button>
 
 
-        <div ng-if="todoList.showFormulario">
-            <button class="btn btn-default" ng-click="todoList.showFormulario = false">X</button>
+        <div ng-if="todoEstados.showFormulario">
+            <button class="btn btn-default" ng-click="todoEstados.showFormulario = false">X</button>
             <div class="form-group">
                 <label for="exampleInputEmail1">Nombre del estado</label>
-                <input type="text" class="form-control" placeholder="Nombre" ng-model="todoList.NewUserNombre" required>
+                <input type="text" class="form-control" placeholder="Nombre" ng-model="todoEstados.NewUserNombre" required>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Id del estado</label>
-                <input id="codigoPuesto" type="number" name="Codigo"class="form-control" placeholder="IdEstado" ng-model="todoList.NewUserIdEstado" required>
+                <input id="codigoPuesto" type="number" name="Codigo"class="form-control" placeholder="IdEstado" ng-model="todoEstados.NewUserIdEstado" required>
             </div>
             
 
-            <div ng-switch="todoList.soyAlta">
+            <div ng-switch="todoEstados.soyAlta">
                 <div ng-switch-when="true">
-                    <button class="btn btn-default" ng-click="todoList.addUsuario()">Guardar</button>
+                    <button class="btn btn-default" ng-click="todoEstados.addEstado()">Guardar</button>
                 </div>
                 <div ng-switch-when="false">
-                    <button class="btn btn-default" ng-click="todoList.SaveModificarUsuario()">Modificar</button>
+                    <button class="btn btn-default" ng-click="todoEstados.SaveModificarEstado()">Modificar</button>
                 </div>
                 <div ng-switch-default>
                     Error

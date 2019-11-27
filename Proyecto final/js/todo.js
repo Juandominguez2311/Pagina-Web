@@ -21,10 +21,18 @@ angular.module('todoApp', [])
             todoList.usuarios = [];
         }
 
+        if (localStorage.getItem("Estados")) {
+            todoList.EstadosIndex = JSON.parse(localStorage.getItem('Estados'));
+        }
+        else {
+            alert('por favor añadir un estado')
+        }
+
 
 
         todoList.showFormulario = false;
         todoList.soyAlta = false;
+        todoList.showDesaprobados = false;
 
         todoList.addTodo = function () {
             todoList.todos.push({ text: todoList.todoText, done: false });
@@ -46,8 +54,9 @@ angular.module('todoApp', [])
                 nombre: todoList.NewUserNombre,
                 apellido: todoList.NewUserApellido,
                 nota1: todoList.NewUsernota1,
-                nota2 :todoList.NewUsernota2,
-                promedio: Math.round(promedio(todoList.NewUsernota1,todoList.NewUsernota2))
+                nota2: todoList.NewUsernota2,
+                promedio: Math.round(promedio(todoList.NewUsernota1,todoList.NewUsernota2)),
+                estado: todoList.NewEstado
             }
             todoList.usuarios.push(usuario);
             var listString = JSON.stringify(todoList.usuarios);
@@ -55,8 +64,9 @@ angular.module('todoApp', [])
         };
 
 
-        todoList.delUsuario = function (index) {
+        todoList.delUsuario = function (usuario, index) {
             todoList.usuarios.splice(index, 1);
+            localStorage.setItem('Usuarios', JSON.stringify(todoList.usuarios))
         };
 
         todoList.indexAEditar = 0;
@@ -69,6 +79,7 @@ angular.module('todoApp', [])
             todoList.NewUserApellido = usuario.apellido;
             todoList.NewUsernota1=usuario.nota1;
             todoList.NewUsernota2=usuario.nota2;
+            todoList.NewEstado=usuario.NewEstado;
         };
 
         todoList.SaveModificarUsuario = function () {
@@ -77,6 +88,7 @@ angular.module('todoApp', [])
             todoList.usuarios[todoList.indexAEditar].apellido = todoList.NewUserApellido;
             todoList.usuarios[todoList.indexAEditar].edad = todoList.NewUsernota1;
             todoList.usuarios[todoList.indexAEditar].edad = todoList.NewUsernota2;
+            todoList.usuarios[todoList.indexAEditar].edad = todoList.NewEstado;
         };
 
         todoList.nuevoUsuario = function () {
@@ -84,15 +96,24 @@ angular.module('todoApp', [])
             todoList.NewUserApellido = "";
             todoList.NewUsernota1="";
             todoList.NewUsernota2="";
+            todoList.NewEstado = "";
             todoList.showFormulario = true;
             todoList.soyAlta = true;
+            console.log(localStorage.getItem('Estados'));
         };
 
-        todoList.AlumnosDesaprovados = function(){
-            todoList.usuariosDesaprovadosCargados = [];
-            todoList.usuarios.forEach(element => {
-                if((element.nota1 + element.nota2) / 2<4) {
-                    todoList.AlumnosDesaprovados.push(element)
+        todoList.AlumnosDesaprobados = function(){
+            if(!todoList.showDesaprobados){
+                todoList.showFormulario = false;
+                todoList.showDesaprobados = true;
+            }else{
+                todoList.showFormulario = true;
+                todoList.showDesaprobados = false;
+            }
+            todoList.usuariosDesaprobadosCargados = [];
+            todoList.usuarios.forEach(usuarioDesaprobado => {
+                if(usuarioDesaprobado.promedio < 5){
+                    todoList.usuariosDesaprobadosCargados.push(usuarioDesaprobado);
                 }
             })
         }
