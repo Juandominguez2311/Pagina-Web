@@ -28,7 +28,7 @@
                     <th scope="col">Nota 2</th>
                     <th scope="col">Promedio</th>
                     <th scope="col">Estado</th>
-                  </tr>
+                </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="usuario in todoList.usuarios">
@@ -47,11 +47,11 @@
                     </td>
                 </tr>
             </tbody>
-            
+
         </table>
         <button class="btn btn-primary" ng-click="todoList.nuevoUsuario()">Nuevo</button>
         <button class="btn btn-warning" ng-click="todoList.AlumnosDesaprobados()">Desaprobados</button>
-        <a href="estados.html"><button class="btn btn-info" > Estados</button></a>
+        <a href="estados.html"><button class="btn btn-info"> Estados</button></a>
 
 
         <div ng-if="todoList.showFormulario">
@@ -62,21 +62,23 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Apellido</label>
-                <input type="text" class="form-control" placeholder="Apellido" ng-model="todoList.NewUserApellido"required>
+                <input type="text" class="form-control" placeholder="Apellido" ng-model="todoList.NewUserApellido"
+                    required>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Nota1</label>
-                <input type="text" class="form-control" placeholder="nota1" ng-model="todoList.NewUsernota1"required>
+                <input type="text" class="form-control" placeholder="nota1" ng-model="todoList.NewUsernota1" required>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Nota2</label>
-                <input type="text" class="form-control" placeholder="nota2" ng-model="todoList.NewUsernota2"required>
+                <input type="text" class="form-control" placeholder="nota2" ng-model="todoList.NewUsernota2" required>
             </div>
             <br>
             <div class="form-group">
                 <label for="passw"><b>Estado:</b></label>
                 <select ng-model="todoList.NewEstado">
-                    <option ng-repeat="estado in todoList.EstadosIndex" value="{{estado.estado}}">{{estado.estado}}</option>
+                    <option ng-repeat="estado in todoList.EstadosIndex" value="{{estado.estado}}">{{estado.estado}}
+                    </option>
                 </select>
             </div>
             <br>
@@ -92,22 +94,27 @@
                     Error
                 </div>
             </div>
-
-            <table class="table table-striped" >
-                    <tr ng-repeat="usuario in todoList.usuariosDesaprovadosCargados track by $index">
+        </div>
+        <div ng-if="todoList.showDesaprobados">
+            <table class="table table-striped">
+                <thead >
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Promedio</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="usuario in todoList.usuariosDesaprobadosCargados">
                         <td>{{usuario.nombre}}</td>
                         <td>{{usuario.apellido}}</td>
-                        <td>{{usuario.nota1}}</td>
-                        <td>{{usuario.nota2}}</td>
                         <td>{{usuario.promedio}}</td>
-                        
+                        <td>{{usuario.estado}}</td>
                     </tr>
-                
+                </tbody>
             </table>
         </div>
-<div>
-
-</div>
 
 
     </div>
