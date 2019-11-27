@@ -13,9 +13,7 @@ angular.module('todoApp', [])
             { text: 'learn AngularJS', done: true },
             { text: 'build an AngularJS app', done: false }];
 
-        //todoList.usuarios = [
-        //    { nombre: 'AngularJS', apellido: "Gomez", edad:'25' },
-        //    { nombre: 'buildapp', apellido: "false", edad:'35' }];
+       
         if (localStorage.getItem("Usuarios")) {
             todoList.usuarios = JSON.parse(localStorage.getItem('Usuarios'));
         }
@@ -90,4 +88,12 @@ angular.module('todoApp', [])
             todoList.soyAlta = true;
         };
 
+        todoList.AlumnosDesaprovados = function(){
+            todoList.usuariosDesaprovadosCargados = [];
+            todoList.usuarios.forEach(element => {
+                if((element.nota1 + element.nota2) / 2<4) {
+                    todoList.AlumnosDesaprovados.push(element)
+                }
+            })
+        }
     });
